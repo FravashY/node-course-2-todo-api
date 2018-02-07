@@ -31,7 +31,6 @@ app.get('/todos', (req, res) => {
   })
 });
 
-// Get /todos/1234324
 app.get('/todos/:id', (req, res) => {
   let id = req.params.id;
 
@@ -47,6 +46,24 @@ app.get('/todos/:id', (req, res) => {
 
     res.status(200).send({todo});
   }, (e) => res.status(400).send())
+});
+
+app.delete('/todos/:id', (req, res) => {
+  let id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  Todo.findByIdAndRemove(id).then((todo) => {
+    if (!todo) {
+      return res.status(404).send();
+    }
+
+    res.status(200).send(todo);
+  }, (e) => {
+    res.status(400).send();
+  };
 });
 
 app.listen(port, () => {
