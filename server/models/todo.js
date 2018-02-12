@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+/**
+ *
+ * @type {"mongoose".Model<"mongoose".Document> | "mongoose".Model<T>}
+ */
 let Todo = mongoose.model('Todo', {
   text: {
     type: String,
